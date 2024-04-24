@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1713839503 source:c:\users\ldh20\onedrive\taÌi liêòu\snake\game\kmin_console.cpp
+	"kmin_console.h"
+
+1713839505 c:\users\ldh20\onedrive\taÌi liêòu\snake\game\kmin_console.h
+	<stdio.h>
+	<conio.h>
+	<windows.h>
+
+1713964255 source:c:\users\ldh20\onedrive\taÌi liêòu\snake\game\main.cpp
+	<iostream>
+	"kmin_console.h"
+
