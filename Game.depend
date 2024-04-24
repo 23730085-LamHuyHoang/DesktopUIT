@@ -11,3 +11,15 @@
 	<iostream>
 	"kmin_console.h"
 
+1713814302 source:c:\users\lamhu\desktop\project_cuoi_ky\snake\kmin_console.cpp
+	"kmin_console.h"
+
+1713814304 c:\users\lamhu\desktop\project_cuoi_ky\snake\kmin_console.h
+	<stdio.h>
+	<conio.h>
+	<windows.h>
+
+1713978991 source:c:\users\lamhu\desktop\project_cuoi_ky\snake\main.cpp
+	<iostream>
+	"kmin_console.h"
+
