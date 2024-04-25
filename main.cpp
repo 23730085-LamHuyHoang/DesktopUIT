@@ -4,26 +4,26 @@
 
 using namespace std;
 
-#define DOT_RAN 149
-#define MAX 100
-#define LEN 1
-#define XUONG 2
-#define TRAI 3
-#define PHAI 4
-#define TUONG_TREN 5
-#define TUONG_DUOI 25
-#define TUONG_TRAI 10
-#define TUONG_PHAI 100
+#define DOT_RAN 149         // Hình ảnh tọa độ của một đốt rắn
+#define MAX 100             // Số đốt rắn
+#define LEN 1               // Mã hướng của rắn
+#define XUONG 2             // Mã hướng của rắn
+#define TRAI 3              // Mã hướng của rắn
+#define PHAI 4              // Mã hướng của rắn
+#define TUONG_TREN 5        // Vị trí của tường trên
+#define TUONG_DUOI 25       // Vị trí của tường dưới
+#define TUONG_TRAI 10       // Vị trí của tường trai
+#define TUONG_PHAI 70      // Vị trí của tường phai
 
-
+// Tọa độ console
 struct ToaDo
 {
     int x;
     int y;
 };
 
-ToaDo ran[MAX];
-int soDot = 3;
+ToaDo ran[MAX]; // Tọa độ của các đốt rắn
+int soDot = 3;  //Số đốt rắn
 
 void khoiTaoRan();
 void hienThiRan(ToaDo dotCuoiCu);
@@ -35,14 +35,11 @@ void xuLyThua();
 ToaDo hienThiMoi();
 bool kiemTraDaAnMoi(ToaDo moi);
 void themDot();
+bool kiemTraRanChamThan();
 
 int main()
 {
-//    for (int i = 0; i< 256; i++)
-//    {
-//        cout << i << ": " << (char)i << endl;
-//    }
-
+    ShowCur(0);
     khoiTaoRan();
 
     int huong = PHAI;
@@ -51,11 +48,16 @@ int main()
     ToaDo moi = hienThiMoi();
     gotoXY(TUONG_TRAI, TUONG_TREN - 1);
     cout << "Diem: " << diem;
+    // Game loop
     while(1)
     {
         ToaDo dotCuoiCu = diChuyen(huong);
         batSuKien(huong);
         hienThiRan(dotCuoiCu);
+        if(kiemTraRanChamThan() == true)
+        {
+            break;
+        }
         if(kiemTraDaAnMoi(moi) == true)
         {
             moi = hienThiMoi();
@@ -70,13 +72,10 @@ int main()
     };
     xuLyThua();
 
-    srand(time(NULL));
-    int k = rand() % 10;
-    cout << k;
-
     return 0;
 }
 
+// KHởi tạo 3 nốt đầu tiên của rắn
 void khoiTaoRan()
 {
     ran[0].x = TUONG_TRAI + 7;
@@ -85,9 +84,12 @@ void khoiTaoRan()
     ran[0].y = ran[1].y = ran[2].y = TUONG_TREN + 5;
 }
 
+// Hiển thị rắn theo tọa độ đã lưu trong mảng
 void hienThiRan(ToaDo dotCuoiCu)
 {
-    for (int i = 0; i < soDot; i++)
+    gotoXY(ran[0].x, ran[0].y);
+    cout << (char)214;
+    for (int i = 1; i < soDot; i++)
     {
         gotoXY(ran[i].x, ran[i].y);
         cout << (char)DOT_RAN;
@@ -96,6 +98,7 @@ void hienThiRan(ToaDo dotCuoiCu)
     cout << " ";
 }
 
+// Cập nhật tọa độ của các đốt rắn khi rắn di chuyển
 ToaDo diChuyen(int huong)
 {
     ToaDo dotCuoiCu = ran[soDot - 1];
@@ -124,27 +127,29 @@ ToaDo diChuyen(int huong)
     return dotCuoiCu;
 }
 
+// Hàm xác định hướng di chuyển của rắn
 void batSuKien(int &huong)
 {
     int key = inputKey();
-    if (key == KEY_UP)
+    if (key == KEY_UP && huong!=XUONG)
     {
         huong = LEN;
     }
-    else if (key == KEY_DOWN)
+    else if (key == KEY_DOWN && huong!=LEN)
     {
         huong = XUONG;
     }
-    else if (key == KEY_LEFT)
+    else if (key == KEY_LEFT && huong!=PHAI)
     {
         huong = TRAI;
     }
-    else if(key == KEY_RIGHT)
+    else if(key == KEY_RIGHT && huong!= TRAI)
     {
         huong = PHAI;
     }
 }
 
+// Hàm dùng đẻ vẽ tường
 void veTuong()
 {
     for (int i = TUONG_TRAI; i <= TUONG_PHAI; i++)
@@ -163,6 +168,7 @@ void veTuong()
     }
 }
 
+// Kiểm tra những trường hợp mà game over
 bool kiemTraThua()
 {
     if (ran[0].y == TUONG_TREN || ran[0].y == TUONG_DUOI || ran[0].x == TUONG_TRAI + 1 || ran[0].x == TUONG_PHAI - 1)
@@ -170,6 +176,7 @@ bool kiemTraThua()
     return false;
 }
 
+// Hàm xử lý khi game over
 void xuLyThua()
 {
     Sleep(100);
@@ -177,6 +184,7 @@ void xuLyThua()
     cout << "Game Over!!!";
 }
 
+// Hiển thị mồi
 ToaDo hienThiMoi()
 {
     srand(time(NULL));
@@ -187,6 +195,8 @@ ToaDo hienThiMoi()
     return ToaDo{x,y};
 }
 
+
+// Kiểm tra đã ăn mồi hay chưa
 bool kiemTraDaAnMoi(ToaDo moi)
 {
     if(ran[0].x == moi.x && ran[0].y == moi.y)
@@ -199,8 +209,22 @@ bool kiemTraDaAnMoi(ToaDo moi)
     }
 }
 
+// Thêm đốt mới khi rắn ăn trúng mồi
 void themDot()
 {
     ran[soDot] = ran[soDot - 1];
     soDot++;
+}
+
+// Kiểm tra xem có chạm thân hay không
+bool kiemTraRanChamThan()
+{
+    for(int i = 1; i <= DOT_RAN; i++)
+    {
+        if((ran[0].x == ran[i].x) && (ran[0].y == ran[i].y))
+        {
+            return true;
+        }
+    }
+    return false;
 }

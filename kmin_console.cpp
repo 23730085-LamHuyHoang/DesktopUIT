@@ -27,7 +27,7 @@ int inputKey()
 // Xóa màn hình
 void clrscr()
 {
-	CONSOLE_SCREEN_BUFFER_INFO	csbiInfo;                  
+	CONSOLE_SCREEN_BUFFER_INFO	csbiInfo;
 	HANDLE	hConsoleOut;
 	COORD	Home = {0,0};
 	DWORD	dummy;
@@ -82,4 +82,11 @@ void noCursorType()
 void setTextColor (int color)
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE) , color);
+}
+
+void ShowCur(bool CursorVisibility)
+{
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO cursor = { 1, CursorVisibility };
+	SetConsoleCursorInfo(handle, &cursor);
 }

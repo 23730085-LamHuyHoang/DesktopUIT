@@ -55,4 +55,6 @@ void noCursorType();
 // Đổi màu chữ
 // Tham số: Mã màu
 void setTextColor (int color);
+
+void ShowCur(bool CursorVisibility);
 //end----------------------Screen----------------------end
