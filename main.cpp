@@ -24,6 +24,7 @@ struct ToaDo
 
 ToaDo ran[MAX]; // Tọa độ của các đốt rắn
 int soDot = 3;  //Số đốt rắn
+int tocDo = 300; // Tốc độ rắn
 
 void khoiTaoRan();
 void hienThiRan(ToaDo dotCuoiCu);
@@ -39,37 +40,44 @@ bool kiemTraRanChamThan();
 
 int main()
 {
-    ShowCur(0);
-    khoiTaoRan();
-
-    int huong = PHAI;
-    int diem = 0;
-    veTuong();
-    ToaDo moi = hienThiMoi();
-    gotoXY(TUONG_TRAI, TUONG_TREN - 1);
-    cout << "Diem: " << diem;
-    // Game loop
-    while(1)
+    do
     {
-        ToaDo dotCuoiCu = diChuyen(huong);
-        batSuKien(huong);
-        hienThiRan(dotCuoiCu);
-        if(kiemTraRanChamThan() == true)
+        ShowCur(0);
+        khoiTaoRan();
+
+        int huong = PHAI;
+        int diem = 0;
+        veTuong();
+        ToaDo moi = hienThiMoi();
+        gotoXY(TUONG_TRAI, TUONG_TREN - 1);
+        cout << "Diem: " << diem;
+        // Game loop
+
+        while(1)
         {
-            break;
-        }
-        if(kiemTraDaAnMoi(moi) == true)
-        {
-            moi = hienThiMoi();
-            themDot();
-            diem++;
-            gotoXY(TUONG_TRAI, TUONG_TREN - 1);
-            cout << "Diem: " << diem;
-        }
-        Sleep(300);
-        if (kiemTraThua() == true)
-            break;
-    };
+            ToaDo dotCuoiCu = diChuyen(huong);
+            batSuKien(huong);
+            hienThiRan(dotCuoiCu);
+            if(kiemTraRanChamThan() == true)
+            {
+                break;
+            }
+            if(kiemTraDaAnMoi(moi) == true)
+            {
+                moi = hienThiMoi();
+                themDot();
+                diem++;
+                tocDo-=20;
+                gotoXY(TUONG_TRAI, TUONG_TREN - 1);
+                cout << "Diem: " << diem;
+            }
+            Sleep(tocDo);
+            if (kiemTraThua() == true)
+                break;
+        };
+        break;
+    }while(1);
+
     xuLyThua();
 
     return 0;
