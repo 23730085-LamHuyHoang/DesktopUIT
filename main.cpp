@@ -1,7 +1,10 @@
 #include <iostream>
+#include <bits/stdc++.h>
 #include "kmin_console.h"
+
 using namespace std;
-#define DOT_RAN 254
+
+#define DOT_RAN 149
 #define MAX 100
 #define LEN 1
 #define XUONG 2
@@ -20,7 +23,7 @@ struct ToaDo
 };
 
 ToaDo ran[MAX];
-    int soDot = 3;
+int soDot = 3;
 
 void khoiTaoRan();
 void hienThiRan(ToaDo dotCuoiCu);
@@ -29,29 +32,49 @@ void batSuKien(int &huong);
 void veTuong();
 bool kiemTraThua();
 void xuLyThua();
+ToaDo hienThiMoi();
+bool kiemTraDaAnMoi(ToaDo moi);
+void themDot();
 
 int main()
 {
-    /*for (int i = 0; i< 256; i++)
-    {
-        cout << i << ": " << (char)i << endl;
-    }
-    return 0;*/
+//    for (int i = 0; i< 256; i++)
+//    {
+//        cout << i << ": " << (char)i << endl;
+//    }
+
     khoiTaoRan();
 
-    int x = 0, y = 0;
     int huong = PHAI;
+    int diem = 0;
     veTuong();
+    ToaDo moi = hienThiMoi();
+    gotoXY(TUONG_TRAI, TUONG_TREN - 1);
+    cout << "Diem: " << diem;
     while(1)
     {
         ToaDo dotCuoiCu = diChuyen(huong);
         batSuKien(huong);
         hienThiRan(dotCuoiCu);
+        if(kiemTraDaAnMoi(moi) == true)
+        {
+            moi = hienThiMoi();
+            themDot();
+            diem++;
+            gotoXY(TUONG_TRAI, TUONG_TREN - 1);
+            cout << "Diem: " << diem;
+        }
         Sleep(300);
         if (kiemTraThua() == true)
             break;
     };
     xuLyThua();
+
+    srand(time(NULL));
+    int k = rand() % 10;
+    cout << k;
+
+    return 0;
 }
 
 void khoiTaoRan()
@@ -127,16 +150,16 @@ void veTuong()
     for (int i = TUONG_TRAI; i <= TUONG_PHAI; i++)
     {
         gotoXY(i, TUONG_TREN);
-        cout << (char)223;
+        cout << (char)35;
         gotoXY(i, TUONG_DUOI);
-        cout << (char)220;
+        cout << (char)35;
     }
     for (int i = TUONG_TREN; i <= TUONG_DUOI; i++)
     {
         gotoXY(TUONG_TRAI, i);
-        cout << (char)222;
+        cout << (char)35;
         gotoXY(TUONG_PHAI, i);
-        cout << (char)221;
+        cout << (char)35;
     }
 }
 
@@ -149,7 +172,35 @@ bool kiemTraThua()
 
 void xuLyThua()
 {
-    Sleep(1000);
+    Sleep(100);
     clrscr();
     cout << "Game Over!!!";
+}
+
+ToaDo hienThiMoi()
+{
+    srand(time(NULL));
+    int x = (TUONG_TRAI+1) + rand()%(TUONG_PHAI - TUONG_TRAI - 1);
+    int y = (TUONG_TREN+1) + rand()%(TUONG_DUOI - TUONG_TREN - 1);
+    gotoXY(x, y);
+    cout << "*";
+    return ToaDo{x,y};
+}
+
+bool kiemTraDaAnMoi(ToaDo moi)
+{
+    if(ran[0].x == moi.x && ran[0].y == moi.y)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void themDot()
+{
+    ran[soDot] = ran[soDot - 1];
+    soDot++;
 }
