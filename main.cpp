@@ -40,44 +40,39 @@ bool kiemTraRanChamThan();
 
 int main()
 {
-    do
+    ShowCur(0);
+    khoiTaoRan();
+
+    int huong = PHAI;
+    int diem = 0;
+    veTuong();
+    ToaDo moi = hienThiMoi();
+    gotoXY(TUONG_TRAI, TUONG_TREN - 1);
+    cout << "Diem: " << diem;
+
+    // Game loop
+    while(1)
     {
-        ShowCur(0);
-        khoiTaoRan();
-
-        int huong = PHAI;
-        int diem = 0;
-        veTuong();
-        ToaDo moi = hienThiMoi();
-        gotoXY(TUONG_TRAI, TUONG_TREN - 1);
-        cout << "Diem: " << diem;
-        // Game loop
-
-        while(1)
+        ToaDo dotCuoiCu = diChuyen(huong);
+        batSuKien(huong);
+        hienThiRan(dotCuoiCu);
+        if(kiemTraRanChamThan() == true)
         {
-            ToaDo dotCuoiCu = diChuyen(huong);
-            batSuKien(huong);
-            hienThiRan(dotCuoiCu);
-            if(kiemTraRanChamThan() == true)
-            {
                 break;
-            }
-            if(kiemTraDaAnMoi(moi) == true)
-            {
-                moi = hienThiMoi();
-                themDot();
-                diem++;
-                tocDo-=20;
-                gotoXY(TUONG_TRAI, TUONG_TREN - 1);
-                cout << "Diem: " << diem;
-            }
-            Sleep(tocDo);
-            if (kiemTraThua() == true)
-                break;
-        };
-        break;
-    }while(1);
-
+        }
+        if(kiemTraDaAnMoi(moi) == true)
+        {
+            moi = hienThiMoi();
+            themDot();
+            diem++;
+            tocDo-=20;
+            gotoXY(TUONG_TRAI, TUONG_TREN - 1);
+            cout << "Diem: " << diem;
+        }
+        Sleep(tocDo);
+        if (kiemTraThua() == true)
+            break;
+    };
     xuLyThua();
 
     return 0;
