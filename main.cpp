@@ -40,13 +40,18 @@ bool kiemTraRanChamThan();
 
 int main()
 {
+    cout << "--------------------" << "WELCOME TO SNAKE GAME" << "--------------------" << endl;
+    cout << "\nNhap Ten Nguoi Choi: ";
+    string tenNguoiChoi; getline(cin, tenNguoiChoi);
+    clrscr();
     ShowCur(0);
     khoiTaoRan();
-
     int huong = PHAI;
     int diem = 0;
     veTuong();
     ToaDo moi = hienThiMoi();
+    gotoXY(TUONG_TRAI, TUONG_TREN - 2);
+    cout << "Nguoi Choi: " << tenNguoiChoi;
     gotoXY(TUONG_TRAI, TUONG_TREN - 1);
     cout << "Diem: " << diem;
 
