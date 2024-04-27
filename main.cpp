@@ -163,16 +163,16 @@ void veTuong()
     for (int i = TUONG_TRAI; i <= TUONG_PHAI; i++)
     {
         gotoXY(i, TUONG_TREN);
-        cout << "#";
+        cout << "-";
         gotoXY(i, TUONG_DUOI);
-        cout << "#";
+        cout << "-";
     }
     for (int i = TUONG_TREN; i <= TUONG_DUOI; i++)
     {
         gotoXY(TUONG_TRAI, i);
-        cout << "#";
+        cout << "|";
         gotoXY(TUONG_PHAI, i);
-        cout << "#";
+        cout << "|";
     }
 }
 
