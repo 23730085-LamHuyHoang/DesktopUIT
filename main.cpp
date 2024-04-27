@@ -4,7 +4,7 @@
 
 using namespace std;
 
-#define DOT_RAN 149         // Hình ảnh tọa độ của một đốt rắn
+#define DOT_RAN 'o'         // Hình ảnh tọa độ của một đốt rắn
 #define MAX 100             // Số đốt rắn
 #define LEN 1               // Mã hướng của rắn
 #define XUONG 2             // Mã hướng của rắn
@@ -96,7 +96,7 @@ void khoiTaoRan()
 void hienThiRan(ToaDo dotCuoiCu)
 {
     gotoXY(ran[0].x, ran[0].y);
-    cout << (char)214;
+    cout << "@";
     for (int i = 1; i < soDot; i++)
     {
         gotoXY(ran[i].x, ran[i].y);
@@ -163,16 +163,16 @@ void veTuong()
     for (int i = TUONG_TRAI; i <= TUONG_PHAI; i++)
     {
         gotoXY(i, TUONG_TREN);
-        cout << (char)35;
+        cout << "#";
         gotoXY(i, TUONG_DUOI);
-        cout << (char)35;
+        cout << "#";
     }
     for (int i = TUONG_TREN; i <= TUONG_DUOI; i++)
     {
         gotoXY(TUONG_TRAI, i);
-        cout << (char)35;
+        cout << "#";
         gotoXY(TUONG_PHAI, i);
-        cout << (char)35;
+        cout << "#";
     }
 }
 
